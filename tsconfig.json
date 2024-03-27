@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "target": "es2021",                           /* Specify what JSX code is generated. */
+    "module": "commonjs",           /* Allow 'import x from y' when a module doesn't have a default export. */
+    "experimentalDecorators": true,                   /* Enable experimental support for legacy experimental decorators. */
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,                    /* Skip type checking all .d.ts files. */
+  }
+}

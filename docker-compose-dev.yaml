@@ -1,0 +1,17 @@
+version: '3.5'
+
+services:
+
+  crdb:
+    image: cockroachdb/cockroach:v22.2.19
+    container_name: roach-single
+    ports:
+      - "26257:26257"
+      - "8080:8080"
+    environment:
+      COCKROACH_DATABASE: graphql-api
+      COCKROACH_USER: graphqlapi
+      COCKROACH_PASSWORD: graphqlapi
+    command: start-single-node --insecure --http-addr :8080
+    volumes:
+      - "${PWD}/roach-single:/cockroach/cockroach-data"
