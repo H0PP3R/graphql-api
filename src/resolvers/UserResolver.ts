@@ -10,20 +10,36 @@ export class UserResolver {
   constructor() {
     this.userRepository = dataSource.getRepository(User);
   }
+
   @Query(() => [User])
   getAllUsers(): Promise<User[]> {
     return this.userRepository.find();
   }
 
-  @Mutation(() => User)
-  async createUser(
-    @Arg('name') name: string,
-    @Arg('email') email: string,
-  ): Promise<User> {
-    const user = new User();
-    user.name = name;
-    user.email = email;
-    await dataSource.getRepository(User).save(user);
-    return user;
+  @Query(() => User)
+  getLibraryCard(@Arg('id') id: number): Promise<User | undefined> {
+    return this.userRepository.findOneBy({ id: id });
   }
+
+  // @Mutation(() => User)
+  // async createUser(
+  //   @Arg('firstName') firstName: string,
+  //   @Arg('lastName') lastName: string,
+  //   @Arg('email') email: string,
+  //   @Arg('password') password: string,
+  //   @Arg('address') address: string,
+  //   @Arg('registrationDate') registrationDate: Date,
+  //   @Arg('') birthDate: Date,
+  // ): Promise<User> {
+  //   const user = new User();
+  //   user.firstName = firstName;
+  //   user.lastName = lastName;
+  //   user.email = email;
+  //   user.password = password;
+  //   user.address = address;
+  //   user.registrationDate = registrationDate;
+  //   user.birthDate = birthDate;
+  //   await dataSource.getRepository(User).save(user);
+  //   return user;
+  // }
 }

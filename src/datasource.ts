@@ -1,5 +1,5 @@
 import * as TypeORM from 'typeorm';
-import { User } from './entity';
+import { ActivityLog, Book, LibraryCard, User } from './entity';
 
 export const dataSource = new TypeORM.DataSource({
   type: 'postgres',
@@ -10,7 +10,8 @@ export const dataSource = new TypeORM.DataSource({
   database: process.env.DATABASE_NAME,
   synchronize: true,
   dropSchema: true,
+  cache: true,
   logging: 'all',
-  entities: [User],
+  entities: [User, LibraryCard, Book, ActivityLog],
   logger: 'advanced-console',
 });

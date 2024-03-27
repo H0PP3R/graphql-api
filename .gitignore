@@ -3,5 +3,6 @@
 /roach-single
 /yarn-error.log
 /yarn.lock
-TODO.txt
+/TODO.txt
 /.vscode
+/src/schema/*
