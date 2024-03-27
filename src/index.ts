@@ -1,6 +1,6 @@
 import 'reflect-metadata';
-import "dotenv/config";
-import { startStandaloneServer } from "@apollo/server/standalone";
+import 'dotenv/config';
+import { startStandaloneServer } from '@apollo/server/standalone';
 import { buildSchema } from 'type-graphql';
 import { UserResolver } from './resolvers/UserResolver';
 import { dataSource } from './datasource';
@@ -10,27 +10,25 @@ import { Context } from './context.type';
 import { ApolloServer } from '@apollo/server';
 
 async function bootstrap() {
-    await dataSource.initialize();
-    const {defaultUser} = await seedDatabase();
+  await dataSource.initialize();
+  const { defaultUser } = await seedDatabase();
 
-    const schema = await buildSchema( {
-        resolvers: [
-            UserResolver,
-        ],
-        emitSchemaFile: path.resolve(__dirname, "schema/schema.graphql"),
-    });
+  const schema = await buildSchema({
+    resolvers: [UserResolver],
+    emitSchemaFile: path.resolve(__dirname, 'schema/schema.graphql'),
+  });
 
-    const context: Context = {
-        user: defaultUser,
-    };
+  const context: Context = {
+    user: defaultUser,
+  };
 
-    const server = new ApolloServer<Context>({ schema });
+  const server = new ApolloServer<Context>({ schema });
 
-    const { url} = await startStandaloneServer(server, {
-        listen: { port: 4000 },
-        context: async () => context,
-    });
-    console.log(`GraphQL server ready at ${url}`);
+  const { url } = await startStandaloneServer(server, {
+    listen: { port: 4000 },
+    context: async () => context,
+  });
+  console.log(`GraphQL server ready at ${url}`);
 }
 
 bootstrap().catch(console.error);

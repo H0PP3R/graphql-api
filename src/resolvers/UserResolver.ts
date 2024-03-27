@@ -16,7 +16,10 @@ export class UserResolver {
   }
 
   @Mutation(() => User)
-  async createUser(@Arg('name') name: string, @Arg('email') email: string): Promise<User> {
+  async createUser(
+    @Arg('name') name: string,
+    @Arg('email') email: string,
+  ): Promise<User> {
     const user = new User();
     user.name = name;
     user.email = email;
