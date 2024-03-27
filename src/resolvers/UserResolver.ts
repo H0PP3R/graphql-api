@@ -21,25 +21,21 @@ export class UserResolver {
     return this.userRepository.findOneBy({ id: id });
   }
 
-  // @Mutation(() => User)
-  // async createUser(
-  //   @Arg('firstName') firstName: string,
-  //   @Arg('lastName') lastName: string,
-  //   @Arg('email') email: string,
-  //   @Arg('password') password: string,
-  //   @Arg('address') address: string,
-  //   @Arg('registrationDate') registrationDate: Date,
-  //   @Arg('') birthDate: Date,
-  // ): Promise<User> {
-  //   const user = new User();
-  //   user.firstName = firstName;
-  //   user.lastName = lastName;
-  //   user.email = email;
-  //   user.password = password;
-  //   user.address = address;
-  //   user.registrationDate = registrationDate;
-  //   user.birthDate = birthDate;
-  //   await dataSource.getRepository(User).save(user);
-  //   return user;
-  // }
+  @Mutation(() => User)
+  async createUser(
+    @Arg('firstName') firstName: string,
+    @Arg('lastName') lastName: string,
+    @Arg('email') email: string,
+    @Arg('password') password: string,
+    @Arg('address') address: string,
+  ): Promise<User> {
+    const user = new User();
+    user.firstName = firstName;
+    user.lastName = lastName;
+    user.email = email;
+    user.password = password;
+    user.address = address;
+    await dataSource.getRepository(User).save(user);
+    return user;
+  }
 }
