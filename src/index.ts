@@ -16,7 +16,7 @@ import {
 
 async function bootstrap() {
   await dataSource.initialize();
-  const { defaultUser } = await seedDatabase();
+  const { defaultCustomer } = await seedDatabase();
 
   const schema = await buildSchema({
     resolvers: [
@@ -29,7 +29,7 @@ async function bootstrap() {
   });
 
   const context: Context = {
-    user: defaultUser,
+    customer: defaultCustomer,
   };
 
   const server = new ApolloServer<Context>({ schema });

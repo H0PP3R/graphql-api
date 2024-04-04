@@ -1,8 +1,8 @@
 import { dataSource } from './datasource';
-import { ActivityLog, Book, LibraryCard, User } from './entity';
+import { ActivityLog, Book, Customer, LibraryCard, User } from './entity';
 
 export async function seedDatabase() {
-  const userRepository = dataSource.getRepository(User);
+  const customerRepository = dataSource.getRepository(Customer);
   const libraryCardRepository = dataSource.getRepository(LibraryCard);
   const bookRepository = dataSource.getRepository(Book);
   const activityLogRepository = dataSource.getRepository(ActivityLog);
@@ -49,7 +49,7 @@ export async function seedDatabase() {
   ]);
   await libraryCardRepository.save([libraryCard1, libraryCard2]);
 
-  const defaultUser = userRepository.create({
+  const defaultCustomer = customerRepository.create({
     firstName: 'John',
     lastName: 'Doe',
     email: 'JohnDoe@email.com',
@@ -57,8 +57,9 @@ export async function seedDatabase() {
     address: '1234 Elm St',
     registrationDate: new Date(),
     birthDate: new Date(),
+    libraryCard: [libraryCard1, libraryCard2],
   });
-  await userRepository.save(defaultUser);
+  await customerRepository.save(defaultCustomer);
 
-  return { defaultUser };
+  return { defaultCustomer };
 }
