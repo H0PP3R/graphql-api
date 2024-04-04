@@ -17,15 +17,34 @@ export class LibraryCardResolver {
     return this.libraryCardRepository.find();
   }
 
-  @Query(() => LibraryCard)
-  getLibraryCard(@Arg('id') id: number): Promise<LibraryCard | undefined> {
-    return this.libraryCardRepository.findOneBy({ id: id });
-  }
+  @Query(() => [LibraryCard])
+  async getLibraryCardsByUserId(@Arg('userId') userId: number): Promise<LibraryCard[]> {
+    const libraryCards = await this.libraryCardRepository
+      .createQueryBuilder("libraryCard")
+      .innerJoinAndSelect("libraryCard.user", "user", "user.id = :userId", { userId })
+      .getMany();
+
+    return libraryCards;
+}
 
   @Mutation(() => User)
   async createLibraryCard(): Promise<LibraryCard> {
     const card = new LibraryCard();
     await dataSource.getRepository(LibraryCard).save(card);
+    return card;
+  }
+
+  @Mutation(() => LibraryCard)
+  async updateLibraryCard(@Arg('id') id: number): Promise<LibraryCard> {
+    const card = await this.libraryCardRepository.findOneBy({ id: id });
+    await this.libraryCardRepository.save(card);
+    return card;
+  }
+
+  @Mutation(() => LibraryCard)
+  async deleteLibraryCard(@Arg('id') id: number): Promise<LibraryCard> {
+    const card = await this.libraryCardRepository.findOneBy({ id: id });
+    await this.libraryCardRepository.remove(card);
     return card;
   }
 }

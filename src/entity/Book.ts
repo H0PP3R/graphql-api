@@ -23,6 +23,10 @@ export class Book extends BaseEntity {
   @Column()
   author!: string;
 
+  @Field(() => Boolean)
+  @Column({ default: false }) 
+  borrowed!: boolean;
+
   @Field(() => LibraryCard)
   @ManyToOne(() => LibraryCard, (card) => card.books)
   libraryCard!: LibraryCard;

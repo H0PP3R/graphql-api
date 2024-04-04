@@ -8,7 +8,6 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { LibraryCard } from './LibraryCard';
 
 @ObjectType()
 @Entity()
@@ -44,9 +43,4 @@ export class User extends BaseEntity {
   @Field(() => Date)
   @UpdateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   birthDate!: Date;
-
-  @Field(() => [LibraryCard])
-  @Column({ type: 'json' })
-  @OneToMany(() => LibraryCard, (libraryCard) => libraryCard.user)
-  libraryCard?: LibraryCard[];
 }

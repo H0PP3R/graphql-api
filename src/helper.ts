@@ -57,7 +57,6 @@ export async function seedDatabase() {
     address: '1234 Elm St',
     registrationDate: new Date(),
     birthDate: new Date(),
-    libraryCard: [libraryCard1, libraryCard2],
   });
   await userRepository.save(defaultUser);
 

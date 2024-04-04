@@ -38,4 +38,30 @@ export class UserResolver {
     await dataSource.getRepository(User).save(user);
     return user;
   }
+
+  @Mutation(() => User)
+  async updateUser(
+    @Arg('id') id: number,
+    @Arg('firstName') firstName: string,
+    @Arg('lastName') lastName: string,
+    @Arg('email') email: string,
+    @Arg('password') password: string,
+    @Arg('address') address: string,
+  ): Promise<User> {
+    const user = await this.userRepository.findOneBy({ id: id });
+    user.firstName = firstName;
+    user.lastName = lastName;
+    user.email = email;
+    user.password = password;
+    user.address = address;
+    await this.userRepository.save(user);
+    return user;
+  }
+
+  @Mutation(() => User)
+  async deleteUser(@Arg('id') id: number): Promise<User> {
+    const user = await this.userRepository.findOneBy({ id: id });
+    await this.userRepository.remove(user);
+    return user;
+  }
 }

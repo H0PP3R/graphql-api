@@ -7,7 +7,7 @@ import {
   OneToMany,
   BaseEntity,
 } from 'typeorm';
-import { User } from './User';
+import { Customer } from './Customer';
 import { Book } from './Book';
 
 @ObjectType()
@@ -17,9 +17,9 @@ export class LibraryCard extends BaseEntity {
   @PrimaryGeneratedColumn()
   readonly id!: number;
 
-  @Field(() => User)
-  @ManyToOne(() => User, (user) => user.libraryCard)
-  user?: User;
+  @Field(() => Customer)
+  @ManyToOne(() => Customer, (customer) => customer.libraryCard)
+  customer?: Customer;
 
   @Field(() => [Book])
   @Column({ type: 'json' })

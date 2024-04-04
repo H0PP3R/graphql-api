@@ -21,6 +21,24 @@ export class ActivityLogResolver {
     return this.bookRepository.findOneBy({ id: id });
   }
 
+  @Query(() => [ActivityLog])
+  getActivityLogsByUserName(@Arg('userName') userName: string): Promise<ActivityLog[]> {
+    return this.bookRepository.find({ where: { userName: userName } });
+  }
+
+  @Query(() => [ActivityLog])
+  getActivityLogsByAction(@Arg('action') action: string): Promise<ActivityLog[]> {
+    return this.bookRepository.find({ where: { action: action } });
+  }
+
+  @Query(() => [ActivityLog])
+  getActivityLogsByUserNameAndAction(
+    @Arg('userName') userName: string,
+    @Arg('action') action: string,
+  ): Promise<ActivityLog[]> {
+    return this.bookRepository.find({ where: { userName: userName, action: action } });
+  }
+
   @Mutation(() => ActivityLog)
   async createActivityLog(): Promise<ActivityLog> {
     const book = new ActivityLog();
