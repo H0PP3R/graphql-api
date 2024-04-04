@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@apollo/server": "^4.9.5",
+    "argon2": "^0.40.1",
     "dotenv": "^16.4.5",
     "graphql": "^16.8.1",
     "graphql-scalars": "1.22.4",
